@@ -1,0 +1,26 @@
+How to login using Azure CLI
+Azure Login
+
+Create Resource Group
+az group create --name RG1 --location EASTUS
+
+Create vNet & Subnet
+az network vnet create --resource-group RG1 --name vnet1 --subnet-name sub1
+
+Create Public IP address to connect to VM
+az network public-ip create --resource-group RG1 --name vm1ip
+
+Create Network Security Group to Allow/Disallow Ports
+az network nsg create --resource-group RG1 --name nsg1
+
+Create Network Card (NIC Card)
+az network nic create --resource-group RG1 --name nic1 --vnet-name vnet1 --subnet sub1 --network-security-group nsg1 --public-ip-address vm1ip
+
+Create Virtual Machine
+az vm create --resource-group RG1 --name vm1 --location EASTUS --nic nic1 --image UbuntuLTS --admin-username sree --admin-password "" --size Standard_B1s
+
+Allow Port 22 for SSH
+az vm open-port --port 22 --resource-group RG1 --name vm1
+
+Allow Port 80 for HTTP webserver
+az vm open-port --port 80 --resource-group RG1 --name vm1 --priority 901
