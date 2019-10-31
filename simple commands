@@ -1,5 +1,5 @@
 How to login using Azure CLI
-Azure Login
+az Login
 
 Create Resource Group
 az group create --name RG1 --location EASTUS
